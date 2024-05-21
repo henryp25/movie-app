@@ -10,7 +10,7 @@ function DatabaseApi() {
     const readAccessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNGNmMGVkYjg1MTZmZjQzNjM0NzE4YWRjYjk4OGFmNSIsInN1YiI6IjY2MTZiYmYxN2E0ZWU3MDE2MzBhNGFhYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.NwHjomSj24e_eFSpivIagTQOGMB1Z7qePKGa-DssOYw"
     console.log(readAccessToken)
     console.log(movieAPI)
-    const url = 'https://api.themoviedb.org/3/search/movie?query=ReCaRg&include_adult=false&language=en-US&page=1
+    const url = 'https://api.themoviedb.org/3/search/movie?query=ReCaRg&include_adult=false&language=en-US&page=1'
     const api_key = movieAPI
     const accessToken = readAccessToken
     const options = {
