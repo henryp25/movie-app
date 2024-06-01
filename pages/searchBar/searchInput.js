@@ -2,6 +2,11 @@ import React from 'react'
 import '../../public/css/searchbar.css'
 
 function Searchbar() {
+    
+
+
+    
+
   return (
     <div className='searchBox'>
         <div>

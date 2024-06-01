@@ -1,6 +1,6 @@
 import React from 'react'
-import Searchbar from '@/app/searchBar/searchInput'
-import ProfileCard from '@/app/searchBar/ProfileCard'
+import Searchbar from '@/pages/searchBar/searchInput'
+import ProfileCard from '@/pages/searchBar/ProfileCard'
 import '../public/css/globals.css'
 
 function index() {
