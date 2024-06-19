@@ -19,7 +19,79 @@ body{
 
 h1{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 2.5rem;
+    font-size: 25px;
     margin-bottom: 1rem;
     font-weight: bold;
+    margin: 15px;
+
 }
+/* Profile Card */
+.profileCard{
+    display: none;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    max-height: 400px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 20px;
+}
+
+.profileInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+/* Search Bar */
+.searchBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .searchBox > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .searchInput {
+    margin-bottom: 10px;
+  }
+  
+  .searchInput input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .searchButton {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .searchButton button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .searchButton button:hover {
+    background-color: #0056b3;
+  }
+  
