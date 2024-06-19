@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { SearchParamsContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime'
 
 
 
@@ -14,14 +15,17 @@ function ProfileCard({searchTerm, onClick}) {
        console.log('Page:', page)
     }
      function prevPage(){
-         setPage(page - 1)
+        if(page === 1){
+            setPage(1)
+        } else {
+            setPage(page - 1)
+        }
+
      }
 
     useEffect(() => {
         async function movieDatabase(e, p){console.log('Fetching movies in getStaticProps...');
-          const url = `https://api.themoviedb.org/3/search/movie?query=${e}&include_adult=false&language=en-US&page=${p}&_limit=2`
-          console.log(url)
-          console.log(p)
+          const url = `https://api.themoviedb.org/3/search/movie?query=${e}&include_adult=false&language=en-US&page=${p}`
           const options = {
               method: 'GET',
               headers: {
@@ -33,7 +37,7 @@ function ProfileCard({searchTerm, onClick}) {
               const movies = await axios.get(url, options)
               console.log('Fetched movies in getStaticProps:', movies);
               const movieData = movies.data // Enhanced logging
-              return setMovies(movieData.results.slice(0,2))
+              return setMovies(movieData.results.slice(0,6))
           } catch (error) {
               console.error('Error in getStaticProps:', error);
               return setMovies([]) // Return an empty array on error
@@ -47,44 +51,44 @@ function ProfileCard({searchTerm, onClick}) {
     
   // DatabaseApi
   return (
-    <div>
-        <div className='searchBox'>
-        <div>
-            <div className='searchInput'>
-                <input id='userInput' type="text" placeholder="Search for a movie" />
-            </div>
-            <div className='searchButton'>
-                <button type='button' onClick={onClick} >Search</button>
-            </div>
-        </div>
-            <button type='button' onClick={nextPage}>Next Page</button>
-            <button type='button' onClick={prevPage}>Previous Page</button>
-        </div>
-        <div className='profileCard'>
-            <div className='profileInfo'>
-                <h1>Profile</h1>
-                <p>Username: {searchTerm}</p>
-                <div className='profileImage'>
+    <div className='container'>
 
-                <img src='https://via.placeholder.com/150' alt='profile' />
+        <div className='searchBox'>
+            <div>
+                <div className='searchInput'>
+                    <input id='userInput' type="text" placeholder="Search for a movie" />
                 </div>
-                <div className='profileInfo'>
-                {console.log('movies:', movies)}
-                {loading && ( 
-                    <h1>Loading...</h1>
-                )}
-                {!loading && (movies.map((movies)=>{
-                    return (
-                        <div key={movies.page}>
-                            <h1>{movies.original_title}</h1>
-                            <p>{movies.release_date}</p>
-                        </div>
-                    )
-                }))}
+                <div className='searchButton'>
+                    <button type='button' onClick={onClick} >Search</button>
+                </div>
             </div>
-            
+      
+        </div>
+        <div className='profileContainer'>
+            <h1>Movies searches for {searchTerm}</h1>
+            <div className='profileCard'>
+                    {loading && ( 
+                        <h1>Loading...</h1>
+                    )}
+                    {!loading && (movies.map((movies)=>{
+                        return (
+                            <div key={movies.id}>
+                                <ul className='movieCard'>
+                                    <li>Title: {movies.title}</li>
+                                    <li>Popularity: {movies.popularity}</li>
+                                    <li>Vote Average: {movies.vote_average}</li>
+                                    <li>Vote Count: {movies.vote_count}</li>
+                                </ul>
+
+                            </div>
+                        )
+                    }))}
             </div>
         </div>
+        <div className='nextPrev'>
+                <button type='button' onClick={nextPage}>Next Page</button>
+                <button type='button' onClick={prevPage}>Previous Page</button>
+        </div>  
     </div>
   )
 }
