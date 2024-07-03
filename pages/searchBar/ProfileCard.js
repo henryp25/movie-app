@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { SearchParamsContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime'
-
-
 
 function ProfileCard({searchTerm, onClick}) {
     const [movies, setMovies] = useState([])
@@ -12,7 +9,6 @@ function ProfileCard({searchTerm, onClick}) {
 
     function nextPage(){
        setPage(page + 1)
-       console.log('Page:', page)
     }
      function prevPage(){
         if(page === 1){
@@ -25,6 +21,7 @@ function ProfileCard({searchTerm, onClick}) {
 
     useEffect(() => {
         async function movieDatabase(e, p){console.log('Fetching movies in getStaticProps...');
+        const imageBaseUrl = 'https://image.tmdb.org/t/p/original';
           const url = `https://api.themoviedb.org/3/search/movie?query=${e}&include_adult=false&language=en-US&page=${p}`
           const options = {
               method: 'GET',
@@ -35,9 +32,18 @@ function ProfileCard({searchTerm, onClick}) {
           }   
           try {
               const movies = await axios.get(url, options)
-              console.log('Fetched movies in getStaticProps:', movies);
-              const movieData = movies.data // Enhanced logging
-              return setMovies(movieData.results.slice(0,6))
+              const movieData = movies.data
+              const cleanedMovieData = movieData.results.slice(0, 6).map(movie => {
+                return {
+                  ...movie,
+                  poster_path: movie.poster_path !== null ? `${imageBaseUrl}${movie.poster_path}` : 'img/noom-peerapong.jpg',
+                  title: movie.title || 'Title not available',
+                  popularity: movie.popularity !== null ? movie.popularity : 'Popularity not available',
+                  vote_average: movie.vote_average !== null ? movie.vote_average : 'Vote average not available',
+                  vote_count: movie.vote_count !== null ? movie.vote_count : 'Vote count not available',
+                };
+              });
+              return setMovies(cleanedMovieData)
           } catch (error) {
               console.error('Error in getStaticProps:', error);
               return setMovies([]) // Return an empty array on error
@@ -62,28 +68,29 @@ function ProfileCard({searchTerm, onClick}) {
                     <button type='button' onClick={onClick} >Search</button>
                 </div>
             </div>
-      
+        
         </div>
+        <h1>Movies searches for {searchTerm}</h1>
         <div className='profileContainer'>
-            <h1>Movies searches for {searchTerm}</h1>
-            <div className='profileCard'>
-                    {loading && ( 
-                        <h1>Loading...</h1>
-                    )}
-                    {!loading && (movies.map((movies)=>{
-                        return (
-                            <div key={movies.id}>
-                                <ul className='movieCard'>
-                                    <li>Title: {movies.title}</li>
-                                    <li>Popularity: {movies.popularity}</li>
-                                    <li>Vote Average: {movies.vote_average}</li>
-                                    <li>Vote Count: {movies.vote_count}</li>
-                                </ul>
+            {loading && ( 
+                <h1>Loading...</h1>
+            )}
+            {!loading && (movies.map((movies)=>{
+                console.log(movies)
+                return (
+                    <div className='movieCard' key={movies.id}>
+                        <img src={`${movies.poster_path}`} alt={movies.title} />
+                        <h2>{movies.title}</h2>
+                        <ul>
+                            <li><span>Popularity</span> {movies.popularity}</li>
+                            <li><span>Vote Average</span> {Math.round(movies.vote_average)}</li>
+                            <li><span>Vote Count</span> {movies.vote_count}</li>
+                            <li><span>Release Date</span> {movies.release_date}</li>
+                        </ul>
 
-                            </div>
-                        )
-                    }))}
-            </div>
+                    </div>
+                )
+            }))}
         </div>
         <div className='nextPrev'>
                 <button type='button' onClick={nextPage}>Next Page</button>
