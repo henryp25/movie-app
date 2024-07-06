@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
 import axios from 'axios'
+import Image from 'next/image'
+import Link from 'next/link'
+
 
 function ProfileCard({searchTerm, onClick}) {
     const [movies, setMovies] = useState([])
@@ -58,7 +62,6 @@ function ProfileCard({searchTerm, onClick}) {
   // DatabaseApi
   return (
     <div className='container'>
-
         <div className='searchBox'>
             <div>
                 <div className='searchInput'>
@@ -70,7 +73,7 @@ function ProfileCard({searchTerm, onClick}) {
             </div>
         
         </div>
-        <h1>Movies searches for {searchTerm}</h1>
+        <h2 className='searchQuery'>Movies searches for <spam className="query">{searchTerm}</spam></h2>
         <div className='profileContainer'>
             {loading && ( 
                 <h1>Loading...</h1>
@@ -79,8 +82,9 @@ function ProfileCard({searchTerm, onClick}) {
                 console.log(movies)
                 return (
                     <div className='movieCard' key={movies.id}>
-                        <img src={`${movies.poster_path}`} alt={movies.title} />
-                        <h2>{movies.title}</h2>
+                            
+                        <img src={`${movies.poster_path}`} alt={movies.title} width={300} height={300} />
+                        <Link href={`/movies/${movies.id}`}><h2>{movies.title}</h2></Link>
                         <ul>
                             <li><span>Popularity</span> {movies.popularity}</li>
                             <li><span>Vote Average</span> {Math.round(movies.vote_average)}</li>

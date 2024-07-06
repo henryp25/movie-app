@@ -1,7 +1,7 @@
 import React from 'react'
 
-import ProfileCard from '@/pages/searchBar/ProfileCard'
-import '../public/css/globals.css'
+import ProfileCard from '@/app/searchBar/ProfileCard'
+import PageHeader from '@/app/headerComponent/PageHeader'
 import { useState } from 'react'  
 
 
@@ -13,15 +13,14 @@ function Index() {
   function onClick() {
     const userInput = document.getElementById('userInput')
     setSearchTerm(userInput.value)
+    document.querySelector('.searchQuery').classList.add('show');
     document.querySelector('.profileContainer').classList.add('show');
   }
 
   return (
     <div className='searchArea'>
-      <div>
-        <h1>Movie Search Page</h1>
-      </div>
-        <ProfileCard onClick={onClick} searchTerm={searchTerm} />
+      <PageHeader />
+      <ProfileCard onClick={onClick} searchTerm={searchTerm} />
     </div>
 
   )

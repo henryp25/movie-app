@@ -4,31 +4,56 @@
 
 /* Entire Page */
 body{
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  background-color: #8b8686;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #8b8686;
 }
 
-h1{
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-font-size: 25px;
-margin-bottom: 1rem;
-font-weight: bold;
-margin: 15px;
-}
-.container{
+/* Header Component */
+.headerComponent{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #fa000069;
+}
+
+.headerComponent h1 {
+    font-size: 2.5em;
+    margin: 20px;
+    color: #fff;
 }
 
 
 /* Profile Card */
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.searchQuery{
+  display: none;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 25px;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  margin: 15px;
+  text-transform: capitalize;
+}
+.searchQuery.show{
+  display: block;
+}
+.searchQuery .query {
+  font-weight: bold;
+  color: #f6f4f4;
+}
 .profileContainer{
     display: none;
     flex-direction: row;
