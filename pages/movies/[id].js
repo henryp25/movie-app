@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import PageHeader from '@/app/headerComponent/PageHeader'
+import '../../public/css/moviePage.css'
 
 
 export default function MovieDetails() {
@@ -37,24 +38,32 @@ export default function MovieDetails() {
       }, [id])
   
   return (
-      <div>
+    <div>
         <PageHeader />
-          {loading && (<h1>Loading...</h1>)}
+        <div className="container">
+          {loading && (<h1 className="loading">Loading...</h1>)}
 
           {!loading && movie && 
             (
-              <div>
+              console.log(movie),
+              <div className="movie-details">
                 <h1>{movie.title}</h1>
-                <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
-                <p>{movie.overview}</p>
-                <ul>
-                  <li>Popularity: {movie.popularity}</li>
-                  <li>Vote Average: {movie.vote_average}</li>
-                  <li>Vote Count: {movie.vote_count}</li>
-                  <li>Release Date: {movie.release_date}</li>
-                </ul>
+                <div className='movie-overview'>
+                  <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
+
+                </div>
+                <div className='movieStats'>
+                  <p>{movie.overview}</p>
+                  <ul>
+                    <li><span>Popularity</span> {movie.popularity}</li>
+                    <li><span>Vote Average</span> {Math.round(movie.vote_average)}</li>
+                    <li><span>Released</span> {movie.release_date}</li>
+                  </ul>
+                </div>
+        
               </div>
               )}
+        </div>
     </div>
   );
 }

@@ -39,7 +39,7 @@ body{
 }
 
 .searchQuery{
-  display: none;
+  display: block;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 25px;
   margin-bottom: 1rem;
@@ -47,22 +47,16 @@ body{
   margin: 15px;
   text-transform: capitalize;
 }
-.searchQuery.show{
-  display: block;
-}
+
 .searchQuery .query {
   font-weight: bold;
   color: #f6f4f4;
 }
 .profileContainer{
-    display: none;
+    display: flex;
     flex-direction: row;
     gap: 10px;
     padding: 10px;
-}
-
-.profileContainer.show {
-  display: flex; /* Show grid when the class 'show' is added */
 }
 
 
@@ -157,6 +151,18 @@ body{
   .searchButton button:hover {
     background-color: #0056b3;
   }
+
+/* pagination */
+.nextPrev{
+  display:none;
+}
+
+.nextPrev .show{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
 
 
 /* Responsive Design */
